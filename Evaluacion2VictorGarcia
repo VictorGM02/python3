@@ -1,0 +1,40 @@
+import requests
+from datetime import timedelta
+
+def obtener_distancia(ciudad_origen, ciudad_destino, api_key):
+    url = f"http://www.mapquestapi.com/directions/v2/route?key={api_key}&from={ciudad_origen}&to={ciudad_destino}"
+    response = requests.get(url)
+    data = response.json()
+    distancia = data["route"]["distance"]
+    return distancia
+
+def obtener_duracion(distancia, velocidad_promedio):
+    tiempo_segundos = (distancia / velocidad_promedio) * 3600
+    duracion = timedelta(seconds=tiempo_segundos)
+    return duracion
+
+def obtener_narrativa(ciudad_origen, ciudad_destino, distancia, duracion_viaje):
+    narrativa = f"Viaje desde {ciudad_origen} hasta {ciudad_destino}:\n"
+    narrativa += f"Distancia: {distancia:.1f} km\n"
+    narrativa += f"Duración estimada: {duracion_viaje}\n"
+    narrativa += "Disfruta tu viaje. ¡Buen viaje!"
+    return narrativa
+
+while True:
+    ciudad_origen = input("Ingrese la ciudad de origen en Chile: ")
+    ciudad_destino = input("Ingrese la ciudad de destino en Latinoamérica: ")
+    if ciudad_origen.lower() == "s" or ciudad_destino.lower() == "s":
+        break
+    
+    api_key = "CpCtADxY3wqw14tMzamuBnIbkWV0oMcf"
+    
+    distancia = obtener_distancia(ciudad_origen + ", Chile", ciudad_destino, api_key)
+    distancia = round(distancia, 1)
+    
+    velocidad_promedio = 80
+    duracion_viaje = obtener_duracion(distancia, velocidad_promedio)
+    duracion_viaje = str(duracion_viaje).split(".")[0]
+    
+    narrativa_viaje = obtener_narrativa(ciudad_origen, ciudad_destino, distancia, duracion_viaje)
+
+    print(narrativa_viaje)
