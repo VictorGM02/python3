@@ -23,9 +23,6 @@ def obtener_narrativa(ciudad_origen, ciudad_destino, distancia, duracion_viaje):
 while True:
     ciudad_origen = input("Ingrese la ciudad de origen en Chile: ")
     ciudad_destino = input("Ingrese la ciudad de destino en Latinoamérica: ")
-    if ciudad_origen.lower() == "s" or ciudad_destino.lower() == "s":
-        break
-    
     api_key = "CpCtADxY3wqw14tMzamuBnIbkWV0oMcf"
     
     distancia = obtener_distancia(ciudad_origen + ", Chile", ciudad_destino, api_key)
@@ -38,3 +35,7 @@ while True:
     narrativa_viaje = obtener_narrativa(ciudad_origen, ciudad_destino, distancia, duracion_viaje)
 
     print(narrativa_viaje)
+
+    respuesta = input("¿Desea realizar otro cálculo? (Sí/No): ")
+    if respuesta.lower() != "si" and respuesta.lower() != "sí":
+    break
