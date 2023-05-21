@@ -38,4 +38,4 @@ while True:
 
     respuesta = input("¿Desea realizar otro cálculo? (Sí/No): ")
     if respuesta.lower() != "si" and respuesta.lower() != "sí":
-    break
+         break
